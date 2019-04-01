@@ -1,0 +1,4 @@
+﻿  pch.cpp
+  Puntero a Metodo.cpp
+d:\programming\visual\c++\puntero a metodo\puntero a metodo\puntero a metodo.cpp(59): warning C4244: 'argumento': conversión de 'time_t' a 'unsigned int'; posible pérdida de datos
+  Puntero a Metodo.vcxproj -> D:\Programming\Visual\C++\Puntero a Metodo\Debug\Puntero a Metodo.exe

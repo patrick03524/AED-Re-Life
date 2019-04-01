@@ -1,0 +1,4 @@
+﻿  pch.cpp
+  Punteros a Función.cpp
+d:\programming\visual\c++\punteros a función\punteros a función\punteros a función.cpp(66): warning C4244: 'argumento': conversión de 'time_t' a 'unsigned int'; posible pérdida de datos
+  Punteros a Función.vcxproj -> D:\Programming\Visual\C++\Punteros a Función\x64\Debug\Punteros a Función.exe

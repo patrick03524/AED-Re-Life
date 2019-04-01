@@ -1,0 +1,7 @@
+﻿  pch.cpp
+  Punteros a Función.cpp
+d:\programming\visual\c++\punteros a función\punteros a función\punteros a función.cpp(66): warning C4244: 'argumento': conversión de 'time_t' a 'unsigned int'; posible pérdida de datos
+  Generando código
+  All 17 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  Generación de código finalizada
+  Punteros a Función.vcxproj -> D:\Programming\Visual\C++\Punteros a Función\x64\Release\Punteros a Función.exe

@@ -1,0 +1,3 @@
+﻿  Funtores.cpp
+d:\programming\visual\c++\funtores\funtores\funtores.cpp(76): warning C4244: 'argumento': conversión de 'time_t' a 'unsigned int'; posible pérdida de datos
+  Funtores.vcxproj -> D:\Programming\Visual\C++\Funtores\Debug\Funtores.exe

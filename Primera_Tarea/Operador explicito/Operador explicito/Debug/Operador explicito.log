@@ -1,0 +1,3 @@
+﻿  Operador explicito.cpp
+d:\programming\visual\c++\operador explicito\operador explicito\operador explicito.cpp(49): warning C4244: 'argumento': conversión de 'time_t' a 'unsigned int'; posible pérdida de datos
+  Operador explicito.vcxproj -> D:\Programming\Visual\C++\Operador explicito\Debug\Operador explicito.exe

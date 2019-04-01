@@ -1,0 +1,8 @@
+﻿  Puntero a Metodo.cpp
+d:\programming\visual\c++\puntero a metodo\puntero a metodo\puntero a metodo.cpp(57): warning C4244: 'argumento': conversión de 'time_t' a 'unsigned int'; posible pérdida de datos
+  Generando código
+  2 of 17 functions (11.8%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
+    0 functions had inline decision re-evaluated but remain unchanged
+  Generación de código finalizada
+  Puntero a Metodo.vcxproj -> D:\Programming\Visual\C++\Puntero a Metodo\Release\Puntero a Metodo.exe

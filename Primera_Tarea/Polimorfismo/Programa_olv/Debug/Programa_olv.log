@@ -1,0 +1,9 @@
+﻿  Programa_olv.cpp
+d:\programming\visual\c++\polimorfismo\programa_olv\programa_olv.cpp(89): warning C4244: 'argumento': conversión de 'time_t' a 'unsigned int'; posible pérdida de datos
+d:\programming\visual\c++\polimorfismo\programa_olv\programa_olv.cpp(82): warning C4018: '<': no coinciden signed/unsigned
+  d:\programming\visual\c++\polimorfismo\programa_olv\programa_olv.cpp(103): note: vea la referencia a la creación de instancias de plantilla de función 'void printArray<int>(T *,int)' que se está compilando
+          with
+          [
+              T=int
+          ]
+  Programa_olv.vcxproj -> D:\Programming\Visual\C++\Polimorfismo\Debug\Programa_olv.exe

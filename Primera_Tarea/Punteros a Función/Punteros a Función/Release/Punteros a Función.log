@@ -1,0 +1,8 @@
+﻿  Punteros a Función.cpp
+d:\programming\visual\c++\punteros a función\punteros a función\punteros a función.cpp(66): warning C4244: 'argumento': conversión de 'time_t' a 'unsigned int'; posible pérdida de datos
+  Generando código
+  2 of 17 functions (11.8%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
+    0 functions had inline decision re-evaluated but remain unchanged
+  Generación de código finalizada
+  Punteros a Función.vcxproj -> D:\Programming\Visual\C++\Punteros a Función\Release\Punteros a Función.exe
