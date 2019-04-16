@@ -23,7 +23,7 @@ void swap_cuock(T &a, T &b)
 }
 
 template<class T>
-int partition(T arr[], int low, int high, bool (Father<int>:: *o) (int, int), Father<int> p)
+int partition(T arr[], int low, int high, bool (Father<T>:: *o) (T,T), Father<T> p)
 {
 	T pivot = arr[high];
 	int i = (low - 1);
