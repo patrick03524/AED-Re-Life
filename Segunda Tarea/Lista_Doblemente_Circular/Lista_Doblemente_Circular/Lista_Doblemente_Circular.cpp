@@ -55,112 +55,148 @@ void quickSort(T arr[], int low, int high)
 	}
 }
 
-template<class T>
-class CNode {
-public:
+
+template <class T>
+struct CNode {
+	CNode<T>* C_Next;
+	CNode<T>* C_Prev;
 	T C_Data;
-	CNode<T> *C_Next;
-	CNode<T> *C_Prev;
 	CNode(T x) {
 		C_Data = x;
-		C_Next = C_Prev = 0;
+		C_Next = C_Prev = this;
 	}
 };
 
-template<class T, class Op>
+template <class T, class Op>
 class CList {
-public:
-	CNode<T> *C_Head;
-	//CNode<T> *C_Tail;
+	CNode<T>* C_Head;
+	CNode<T>* C_Tail;
+	unsigned int len = 0;
 	Op o;
-	CList() { C_Head = 0; }
-	~CList()
-	{
-		CNode<T> *temp = C_Head;
-		while (temp) {
-			CNode<T> *cuack;
-			cuack = temp;
-			temp = temp->C_Next;
-			delete cuack;
-		}
-		delete temp;
-	}
-
-	bool find(T x, CNode<T> **&p);
+public:
+	CList();
+	bool find(T x, CNode<T>*& p);
 	bool insert(T x);
 	bool remove(T x);
 	void print();
-	void get_last(CNode<T> **&p);
+	void Josephus_cueck(int ciclos);
 };
 
-template<class T, class Op>
-bool CList<T, Op>::find(T x, CNode<T> **&p)
-{
-	//for (p = &C_Head; (*p) && o((*p)->C_Data, x) ; p = &((*p)->C_Next));
-	p = &C_Head;
-	if ((*p) && (*p)->C_Next == C_Head && o((*p)->C_Data, x)) {
-		p = &(*p)->C_Next;
-		return (*p) && (*p)->C_Data == x;
-	}
-	while ((*p) && o((*p)->C_Data, x)) {
-		p = &(*p)->C_Next;
-	}
-
-	//if((*p)==C_Tail){}
-	return (*p) && (*p)->C_Data == x;
+template <class T, class Op>
+CList<T, Op>::CList() {
+	this->C_Head = this->C_Tail = 0;
 }
 
-template<class T, class Op>
-bool CList<T, Op>::insert(T x)
-{
-	CNode<T> **p, **q;
-	if (find(x, p)) { return 0; }
-	CNode<T> *temp = new CNode<T>(x);
-	temp->C_Next = *p;
-	*p = temp;
-	get_last(q);
-	(*q)->C_Next = C_Head;
+template <class T, class Op>
+bool CList<T, Op>::find(T x, CNode<T>*& p) {
+	if (!C_Head) return 0;
+	for (p = (C_Head); o(p->C_Data, p->C_Next->C_Data) && o(p->C_Data, x); p = (p)->C_Next);
+	return (p)->C_Data == x;
+}
+
+template <class T, class Op>
+bool CList<T, Op>::insert(T x) {
+	if (!C_Head) {
+		C_Head = new CNode<T>(x);
+		C_Tail = C_Head;
+	}
+	else {
+		CNode<T>* p;
+		if (find(x, p)) return 0;
+		CNode<T>* N_Temp = new CNode<T>(x);
+		if (p == C_Tail) {
+			if (p->C_Data < x) {
+				N_Temp->C_Next = C_Head;
+				p->C_Next = N_Temp;
+				N_Temp->C_Prev = p;
+				C_Head->C_Prev = N_Temp;
+				C_Tail = N_Temp;
+			}
+			else {
+				N_Temp->C_Next = p;
+				N_Temp->C_Prev = p->C_Prev;
+				p->C_Prev->C_Next = N_Temp;
+				p->C_Prev = N_Temp;
+			}
+		}
+		else if (p == C_Head) {
+			N_Temp->C_Next = p;
+			N_Temp->C_Prev = C_Tail;
+			p->C_Prev = N_Temp;
+			C_Head = N_Temp;
+			C_Tail->C_Next = N_Temp;
+		}
+		else {
+			N_Temp->C_Next = p;
+			N_Temp->C_Prev = p->C_Prev;
+			p->C_Prev->C_Next = N_Temp;
+			p->C_Prev = N_Temp;
+		}
+	}
+	len++;
 	return 1;
 }
 
-template<class T, class Op>
-bool CList<T, Op>::remove(T x)
-{
-	CNode<T> **p;
-	if (!find(x, p)) { return 0; }
-	CNode<T> *temp = *p;
-	*p = temp->C_Next;
-	delete temp;
+template <class T, class Op>
+bool CList<T, Op>::remove(T x) {
+	if (C_Head == C_Head->C_Next) {
+		delete C_Head;
+		C_Head = C_Tail = 0;
+		return 0;
+	}
+	CNode<T>* p;
+	if (!find(x, p)) return 0;
+	if (p == C_Head) {
+		C_Head = (p)->C_Next;
+		C_Head->C_Prev = C_Tail;
+		C_Tail->C_Next = C_Head;
+	}
+	else if (p == C_Tail) {
+		C_Tail = (p)->C_Prev;
+		C_Tail->C_Next = C_Head;
+		C_Head->C_Prev = C_Tail;
+	}
+	else {
+		(p)->C_Prev->C_Next = (p)->C_Next;
+		(p)->C_Next->C_Prev = (p)->C_Prev;
+	}
+	delete p;
+	len--;
 	return 1;
 }
 
-template<class T, class Op>
-void CList<T, Op>::print()
-{
-	if (!C_Head) { return; }
-	CNode<T>*temp = C_Head;
-	cout << temp->C_Data << ' ';
-	temp = temp->C_Next;
-	while (temp && temp != C_Head) {
-		cout << temp->C_Data << ' ';
+template <class T, class Op>
+void CList<T, Op>::print() {
+	if (!C_Head) cout << endl;
+	else {
+		CNode<T>* temp;
+		for (temp = C_Head; o(temp->C_Data, temp->C_Next->C_Data); temp = temp->C_Next) {
+			cout << temp->C_Data << " ";
+		}
+		cout << temp->C_Data << endl;
+	}
+}
+
+template <class T, class Op>
+void CList<T, Op>::Josephus_cueck(int ciclos) {
+	CNode<int>* temp = C_Head;
+
+	while (len > 2) {
+		for (int i = 0; i < ciclos - 1; i++) {
+			temp = temp->C_Next;
+		}
+		T tmp = temp->C_Data;
 		temp = temp->C_Next;
+		cout << "Shine Kakyoin: " << tmp << endl;
+		remove(tmp);
 	}
+	cout << "Los Soldados Pecho Plateado que sobrevivieron fueron estos xdd: " << C_Head->C_Data << " " << C_Head->C_Next->C_Data << endl;
+	cout << "IM SO ALONE XD" << endl;
+
 }
 
-template<class T, class Op>
-void CList<T, Op>::get_last(CNode<T> **&p)
-{
-	//if (!C_Head) { return; }
-	p = &C_Head;
-	if ((*p)->C_Next == C_Head) {
-		p = &((*p)->C_Next);
-		return;
-	}
-	for (; (*p) && (*p)->C_Next != C_Head; p = &((*p)->C_Next));
-	return;
-}
-int main()
-{
+int main(int argc, char *argv[]) {
+
 	CList<int, Menor<int>> list_cueck;
 	cout << "Lista Enlazada Doble Puntero Sin Repeticiones" << endl;
 	unsigned int i1, i2;
@@ -172,20 +208,21 @@ int main()
 	for (unsigned int i = 0; i < i1; i++) {
 		cout << "Ingrese el elemento que quiere agregar: ";
 		cin >> num1;
-		+list_cueck.insert(num1);
+		list_cueck.insert(num1);
 		list_cueck.print();
-		cout << " " << endl;
 	}
 	for (unsigned int i = 0; i < i2; i++) {
 		cout << "Ingrese el elemento que quiere borrar: ";
 		cin >> num2;
 		list_cueck.remove(num2);
 		list_cueck.print();
-		cout << " " << endl;
 	}
 	cout << "Adios xd" << endl;
 	list_cueck.print();
-	cout << "" << endl;
-	//list_cueck.~CList<int,Menor<int>> ();	
-
+	unsigned int watashiwaldes;
+	cout << "Ingrese los ciclos del Josephus: ";
+	cin >> watashiwaldes;
+	list_cueck.Josephus_cueck(watashiwaldes);
+	//list_cueck.~CList<int,Menor<int>> ();
+	return 0;
 }

@@ -59,18 +59,16 @@ void quickSort(T arr[], int low, int high)
 template <class T>
 struct CNode {
 	CNode<T>* C_Next;
-	CNode<T>* C_Prev;
 	T C_Data;
 	CNode(T x) {
 		C_Data = x;
-		C_Next = C_Prev = this;
+		C_Next = this;
 	}
 };
 
 template <class T, class Op>
 class CList {
 	CNode<T>* C_Head;
-	CNode<T>* C_Tail;
 	unsigned int len = 0;
 	Op o;
 public:
@@ -93,7 +91,68 @@ bool CList<T, Op>::find(T x, CNode<T>*& p) {
 	for (p = (C_Head); o(p->C_Data, p->C_Next->C_Data) && o(p->C_Data, x); p = (p)->C_Next);
 	return (p)->C_Data == x;
 }
+template <class T, class Op>
+bool CList<T, Op>::insert(T x) {
+	if (C_Head && C_Head->C_Data == x) { return 0; }
+	if (C_Head == NULL || !o(C_Head->C_Data, x)) {
+		cout << "Entre al if" << endl;
+		CNode<T> *temp = new CNode<T>(x);
+		temp->C_Next = C_Head;
+		C_Head = temp;
+		len++;
+		return 1;
+	}
+	CNode<T> *p;
+	if (find(x, p)) { return 0; }
+	if (p->C_Next && p->C_Next->C_Data == x) { return 0; }
+	cout << "No entraste al if pes" << endl;
+	cout << "p->" << p->C_Data << endl;
+	CNode<T> *temp = new CNode<T>(x);
+	temp->C_Next = p->C_Next;
+	p->C_Next = temp;
+	len++;
+	return 1;
+}
 
+template <class T, class Op>
+bool CList<T, Op>::remove(T x) {
+	if (C_Head == NULL) {
+		cout << "CABEZONA NULA" << endl;
+		return 0;
+	}
+	if (C_Head->C_Data == x) {
+		cout << "CABEZONA CHI CHEÑOL" << endl;
+		CNode <T> *cuack = C_Head;
+		CNode<T> *temp = cuack->C_Next;
+		C_Head = temp;
+		delete cuack;
+		len--;
+		return 1;
+	}
+	CNode<T> *p;
+	if (!find_remove(x, p)) {
+		cout << "No lo encontro pes causa ta que safa nomas causa xd" << endl;
+		cout << "p->" << p->C_Data << endl;
+		return 0;
+	}
+	if (p->C_Next && p->C_Next->C_Data == x) {
+		cout << "RAPEMYSELF bucle p->next->data == data" << endl;
+		CNode<T> *temp = p->C_Next;
+		p->C_Next = temp->C_Next;
+		delete temp;
+		len--;
+		return 1;
+	}
+	cout << "No entre a ningun if" << endl;
+	cout << "p->" << p->C_Data << endl;
+	CNode<T> *temp = p->C_Next;
+	p->C_Next = temp->C_Next;
+	delete temp;
+	cout << "MORI xd" << endl;
+	len--;
+	return 1;
+}
+/*
 template <class T, class Op>
 bool CList<T, Op>::insert(T x) {
 	if (!C_Head) {
@@ -163,7 +222,8 @@ bool CList<T, Op>::remove(T x) {
 	delete p;
 	len--;
 	return 1;
-}
+}*/
+
 
 template <class T, class Op>
 void CList<T, Op>::print() {

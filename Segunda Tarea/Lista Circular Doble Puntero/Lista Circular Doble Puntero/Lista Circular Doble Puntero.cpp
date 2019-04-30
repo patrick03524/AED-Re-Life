@@ -121,16 +121,15 @@ bool CList<T, Op>::insert(T x)
 {
 	CNode<T> **p;
 	if (find(x, p)) { return 0; }
-	if (*p && o(x,(*p)->C_Data)) {
-		cout << "COCHINO Y FEO UF CSMREEEEEEEEEEEEEEEE" << endl;
+	if (C_Head && o(x,C_Head->C_Data)) {
+		CNode<T> *temp_heado = C_Head;
+		cout << "COCHINO Y FEO UF CSMREEEEEEEEEEEEEEEE xd" << endl;
 		CNode<T> *temp = new CNode<T>(x);
 		temp->C_Next = *p;
-		//*p = temp;
-		for (; (*p)!= C_Head; p = &(*p)->C_Next);
+		for (; (*p)->C_Next!= temp_heado; p = &(*p)->C_Next);
 		(*p)->C_Next = temp;
-		C_Head = *p;
-		//for (r = *p; r->C_Next != C_Head; r = r->C_Next);
-		//r->C_Next = C_Head;
+		C_Head = temp;
+		len++;
 		return 1;
 	}
 	/*CNode<T> *temp = new CNode<T>(x);
@@ -140,7 +139,6 @@ bool CList<T, Op>::insert(T x)
 	if (!(*p)->C_Next) {	
 		(*p)->C_Next = C_Head;
 	}
-	
 	len++;
 	return 1;
 }
@@ -191,6 +189,24 @@ bool CList<T, Op>::remove(T x)
 {
 	CNode<T> **p;
 	if (!find(x, p)) { return 0; }
+	if (C_Head->C_Next == C_Head && x == C_Head->C_Data) { 
+		cout << "NANI" << endl; 
+		CNode<T> *temp = C_Head; 
+		delete temp; 
+		C_Head = 0; 
+		len--; 
+		return 1; 
+	}
+	if (C_Head->C_Next!=C_Head && x == C_Head->C_Data) {
+		cout << "se quiere borrar la cabeza csma" << endl;
+		CNode<T> *temp_heado = C_Head;
+		for (; (*p)->C_Next != temp_heado; p = &(*p)->C_Next);
+		C_Head = C_Head->C_Next;
+		(*p)->C_Next = C_Head;
+		delete temp_heado;
+		len--;
+		return 1;
+	}
 	CNode<T> *temp = *p;
 	*p = temp->C_Next;
 	delete temp;
@@ -246,7 +262,7 @@ void CList<T, Op>::get_last(CNode<T> **&p)
 
 int main()
 {
-	CList<int, Menor<int>> 	
+	CList<int, Menor<int>> 	list_cueck;
 	cout << "Lista Enlazada Doble Puntero Sin Repeticiones" << endl;
 	unsigned int i1, i2;
 	int num1, num2;

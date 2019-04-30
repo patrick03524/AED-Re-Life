@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.489
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ArbolSinPunterosOseanomame", "ArbolSinPunterosOseanomame\ArbolSinPunterosOseanomame.vcxproj", "{5CFF8B23-A427-4884-B832-B3AEFF69280F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5CFF8B23-A427-4884-B832-B3AEFF69280F}.Debug|x64.ActiveCfg = Debug|x64
+		{5CFF8B23-A427-4884-B832-B3AEFF69280F}.Debug|x64.Build.0 = Debug|x64
+		{5CFF8B23-A427-4884-B832-B3AEFF69280F}.Debug|x86.ActiveCfg = Debug|Win32
+		{5CFF8B23-A427-4884-B832-B3AEFF69280F}.Debug|x86.Build.0 = Debug|Win32
+		{5CFF8B23-A427-4884-B832-B3AEFF69280F}.Release|x64.ActiveCfg = Release|x64
+		{5CFF8B23-A427-4884-B832-B3AEFF69280F}.Release|x64.Build.0 = Release|x64
+		{5CFF8B23-A427-4884-B832-B3AEFF69280F}.Release|x86.ActiveCfg = Release|Win32
+		{5CFF8B23-A427-4884-B832-B3AEFF69280F}.Release|x86.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {D1C6B7D3-9EE9-449B-BE1A-14BF81CC8DE3}
+	EndGlobalSection
+EndGlobal
