@@ -1,6 +1,7 @@
 
 #include "pch.h"
 #include <iostream>
+using namespace std;
 template<class T>
 class Mayor {
 public:
@@ -57,78 +58,78 @@ template<class T>
 class TNode {
 public:
 	T T_x;
-	int state_null = -1;
-	TNode<T> T_Nodes[2];
+	unsigned int hijo_menor_pos,hijo_may_pos,pos = 0;
+	TNode() {
+		pos = 0;
+		hijo_menor_pos = hijo_may_pos = 0;
+	}
 	TNode(T scuack) {
 		T_x = scuack;
-		T_Nodes[0] = T_Nodes[1] = 0;
+		pos = 0;
+		hijo_menor_pos = hijo_may_pos = 0;
 	}
 };
 template<class T, class Op, unsigned int len>
 class BTree {
 public:
-	TNode<T> T_Head;
-	TNode<T> B_Nodes[len];
+	bool T_Raiz;
+	TNode<T> T_Nodes[len];
 	Op o;
 	unsigned int current_len = 0;
 	BTree() {
+		T_Raiz = 0;
 	}
-	bool find(T x, TNode<T> &Head);
+	bool find(T x, unsigned int &Node_pos);
 	bool insert(T x);
 	bool Remove(T x);
+	void print();
 };
 template<class T, class Op, unsigned int len>
-bool BTree<T,Op,len>::find(T x, TNode<T> &temp)
-{
-	temp = T_Head;
-	if (temp->state_null == -1) { return 0; }
-	while (temp->state_null == 0 && current_len<len) {
-		temp = B_Nodes[o(temp.T_x, x)];)
+bool BTree<T, Op, len>::find(T x, unsigned int &Node_pos) {
+	if (T_Nodes[0].T_x == x) { Node_pos = 0; cout << "BUSCATE LA CABEZA LOCO" << endl; return 1; }
+	if (o(T_Nodes[0].T_x, x)) {
+		cout << x << " le corresponde ser hijo mayor" << endl;
+		return 1;
 	}
-	return temp->T_x == x;
+	else {
+		cout << x << " le corresponde ser hijo menor" << endl;
+		return 1;
+	}
+	
 }
 template<class T, class Op, unsigned int len>
-bool BTree<T, Op, len>::insert(T x)
-{
-	if (!T_Head) {
-		T_Head->state_null = 0;
-		T_Head->T_x = x;
-		T_Head->T_Nodes[0] = T_Head->T_Nodes[1] = NULL;
+bool BTree<T, Op, len>::insert(T x) {
+	unsigned int current_pos = 0;
+	if (!T_Raiz) {
+		T_Nodes[0] = x; T_Nodes[0].hijo_menor_pos = 1; T_Nodes[0].hijo_may_pos = 2;
+		cout << "Creaste la cabeza" << endl;
+		T_Raiz = 1;
 		current_len++;
 		return 1;
 	}
-	TNode<T> temp;
-	if (find(x, temp)) { return 0; }
-	temp->T_Nodes[o(temp.T_x, x)]->T_x = x;
-	temp->T_Nodes[o(temp.T_x, x)]->T_Nodes[0] = temp->T_Nodes[o(o(temp.T_x, x))]->T_Nodes[1] = NULL;
-	current_len++;
-	return 1;
-
+	if (!find(x, current_pos)) { return 1; }
+	
 }
 template<class T, class Op, unsigned int len>
-bool BTree<T, Op, len>::Remove(T x)
-{
-	if (!T_Head) { return 0; }
-	if (T_Head->T_x == x) {
-		current_len--;
-		TNode<T> temp;
-		temp = T_Head;
-		T_Head->T_Nodes[o(T_Head.T_x, x)] = temp;
-		delete temp;
-		return 1;
+void BTree<T, Op, len>::print() {
+	cout << "ARBOL: " << endl;
+	for (unsigned int i = 0; i < len; i++) {
+		cout << " VALUE: "<< T_Nodes[i].T_x << endl;
+		cout << "HIJOMENOR POS: " << T_Nodes[i].hijo_menor_pos << endl;
+		cout << "HIJOMAYOR POS: " << T_Nodes[i].hijo_may_pos << endl;
+		cout << "---------------------------------------------------------" << endl;
 	}
-	TNode<T> temp;
-	if (!find(x, temp)) { return 0; }
-	TNode<T> temp2;
-	temp2 = temp;
-	temp2->T_Nodes[o(T_Head.T_x, x)] = Temp;
-	delete temp2;
-	current_len--;
-	return 1;
 }
+
 int main()
 {
-	BTree<int, Menor<int>, 10> arbol_cueck;
+	BTree<int, Menor<int>, 10> T_Cueck;
+	T_Cueck.insert(30);
+	T_Cueck.print();
+	T_Cueck.insert(40);
+	T_Cueck.insert(30);
+	T_Cueck.insert(20);
+
 }
 
 
